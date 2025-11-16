@@ -10,3 +10,4 @@ Volt::route('/', 'list-users');
 
 Route::get('/blade', [UserController::class, 'index'])->name('blade-users.index');
 
+Route::get('/blade-simple', [UserController::class, 'indexSimple'])->name('blade-users.index.simple');

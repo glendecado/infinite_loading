@@ -43,7 +43,9 @@
 
 @push('scrpts')
 <script>
+
     // Vanilla JS Infinite Scroll
+    
     document.addEventListener('DOMContentLoaded', function() {
         const userList = document.getElementById('data-container');
         const loadMore = document.getElementById('load-more');
