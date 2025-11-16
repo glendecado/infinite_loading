@@ -1,6 +1,6 @@
 # Infinite Loading with Livewire & Blade PHP (Vanilla JS)
 
-This project demonstrates **infinite scrolling / loading** functionality using **Livewire**, **Blade PHP**, and **vanilla JavaScript**. It allows you to load data progressively without refreshing the page, which is ideal for displaying long lists of items like users, posts, or products.
+This project demonstrates **infinite scrolling ** functionality using **Livewire**, **Blade PHP**, and **vanilla JavaScript**. It allows you to load data progressively without refreshing the page, which is ideal for displaying long lists of items like users, posts, or products.
 
 ---
 
