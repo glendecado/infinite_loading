@@ -26,7 +26,27 @@ This project demonstrates **infinite scrolling / loading** functionality using *
 
 
 ## For Blade that uses components
-- **layouts/app.blade.php is needed**
+- **layouts/app.blade.php is required**
+    - Example app layout:
+    
+ ````php
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    </head>
+    <body>
+        @yield('content')
+
+        @stack('scrpts')
+    </body>
+    </html>
+````   
+    - @yield('content') and @stack('scripts') are required for Blade components and JavaScript to work properly.
+
 
 - **Backend Example**
     - Create a controller method for fetching paginated data:

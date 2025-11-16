@@ -9,8 +9,6 @@
 <body>
     @yield('content')
 
-    
-    {{-- Place scripts here --}}
     @stack('scrpts')
 </body>
 </html>
