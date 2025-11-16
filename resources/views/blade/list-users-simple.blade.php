@@ -1,4 +1,4 @@
-<x-infinite.loading :hasMore=" $users->hasMorePages()" :page="$users->currentPage()" :perPage="$perPage" :total="$users->total()">
+<x-infinite.scrolling :hasMore=" $users->hasMorePages()" :page="$users->currentPage()" :perPage="$perPage" :total="$users->total()">
 
         @foreach ($users as $user)
         <div class="border rounded-md p-2 m-2">
@@ -8,4 +8,4 @@
         </div>
         @endforeach
 
-</x-infinite.loading>
+</x-infinite.scrolling>
