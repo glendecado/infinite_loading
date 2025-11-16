@@ -29,7 +29,7 @@ class UserController extends Controller
 
         $users = \App\Models\User::paginate($perPage);
 
-        return view('blade.list-user-simple', [
+        return view('blade.list-users-simple', [
             'users'   => $users,
             'perPage' => $perPage,
         ]);

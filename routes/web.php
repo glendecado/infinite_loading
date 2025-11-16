@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Volt::route('/', 'list-users');
-
+Volt::route('/simple', 'list-users-simple');
 
 Route::get('/blade', [UserController::class, 'index'])->name('blade-users.index');
 
