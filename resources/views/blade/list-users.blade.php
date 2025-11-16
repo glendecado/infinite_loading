@@ -1,15 +1,3 @@
-    @php
-    use App\Models\User;
-
-    // STATE
-    $perPage = 7;
-    $page = request()->get('page', 1);
-
-    $skip = ($page - 1) * $perPage;
-    $users = User::skip($skip)->take($perPage)->get();
-    $total = User::count();
-    $hasMore = $skip + $perPage < $total;
-    @endphp
 
 
         <x-layouts.app>
