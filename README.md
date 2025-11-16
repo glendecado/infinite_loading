@@ -47,7 +47,7 @@ This project demonstrates **infinite scrolling / loading** functionality using *
 - **Frontend Blade Example**
     - Use the infinite loading component to display users:
 ````php
-<x-infinite.loading :hasMore=" $users->hasMorePages()" :page="$users->currentPage()" :perPage="$perPage" :total="$users->total()">
+<x-infinite.loading :hasMore="$users->hasMorePages()" :page="$users->currentPage()" :perPage="$perPage" :total="$users->total()">
 
     @foreach ($users as $user)
     <div class="border rounded-md p-2 m-2">
