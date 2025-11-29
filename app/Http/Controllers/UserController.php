@@ -9,16 +9,13 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = 7;
+        $perPage = 1;
 
         $users = \App\Models\User::paginate($perPage);
 
         return view('blade.list-users', [
             'users'   => $users,
-            'page'    => $users->currentPage(),
-            'total'   => $users->total(),
-            'perPage' => $perPage,
-            'hasMore' => $users->hasMorePages(),
+            'perPage'    => $perPage,
         ]);
     }
 

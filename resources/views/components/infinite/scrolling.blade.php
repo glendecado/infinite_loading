@@ -1,41 +1,40 @@
-@props(['hasMore' => false, 'total' => 0, 'page' => 1, 'perPage' => 10])
-@extends('layouts.app')
-@section('content')
+@props(['total' => 0, 'page' => 1])
 <div>
     <div id="data-container">
         {{ $slot }}
     </div>
 
+    <div  id="load-more">
+        <x-infinite.load-more />
+    </div>
 
-    @if($hasMore)
-      <x-infinite.load-more />
-    @endif
+
 </div>
-@endsection
 
 @push('scrpts')
-<script>
+<script defer>
+document.addEventListener('DOMContentLoaded', function () {
+    const userList = document.getElementById('data-container');
+    const target = document.getElementById('load-more');
+    let page = parseInt("{{ $page }}");
+    const total = parseInt("{{ $total }}");
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const userList = document.getElementById('data-container');
-        const loadMore = document.getElementById('load-more');
-        let page = parseInt("{{ $page }}");
-        const perPage = parseInt("{{ $perPage }}");
-        const total = parseInt("{{ $total }}");
+    let visible = false;
+    let isFetching = false;
 
-        if (!loadMore) return;
+    const fetchNext = async () => {
+        if (!visible || isFetching) return; // stop if not visible or already fetching
+        if (userList.children.length >= total) {
+            target.style.display = 'none';
+            return;
+        }
 
-        const observer = new IntersectionObserver(async ([entry]) => {
-            if (!entry.isIntersecting) return;
+        isFetching = true;
+        page++;
+        console.log('Fetching page', page);
 
-            if (userList.children.length >= total) {
-                loadMore.style.display = 'none';
-                return;
-            }
-
-            page++;
-
-            const res = await fetch(`?page=${page}&perPage=${perPage}`);
+        try {
+            const res = await fetch(`?page=${page}`);
             const html = await res.text();
 
             const tempDiv = document.createElement('div');
@@ -45,13 +44,36 @@
             newData.forEach(u => userList.appendChild(u));
 
             if (userList.children.length >= total) {
-                loadMore.style.display = 'none';
+                target.style.display = 'none';
             }
-        }, {
-            rootMargin: '100px',
-        });
+        } catch (err) {
+            console.error('Fetch error:', err);
+        } finally {
+            isFetching = false;
+            // Immediately fetch next if still visible and not done
+            if (visible && userList.children.length < total) {
+                fetchNext();
+            }
+        }
+    };
 
-        observer.observe(loadMore);
-    });
+    const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+            // Became visible
+            if (!visible) {
+                visible = true;
+                fetchNext(); // start ultra-fast continuous fetching
+            }
+        } else {
+            // No longer visible
+            if (visible) {
+                visible = false;
+                console.log("Load-more no longer visible, stopped fetching");
+            }
+        }
+    }, { threshold: 0 }); // partially visible
+
+    observer.observe(target);
+});
 </script>
 @endpush
